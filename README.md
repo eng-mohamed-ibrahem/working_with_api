@@ -1,7 +1,6 @@
 # working_with_api
 fetch some data using fake api data
 
-[fake api json](https://jsonplaceholder.typicode.com/comments)
 [fake api json](https://jsonplaceholder.typicode.com/posts)
 
 
