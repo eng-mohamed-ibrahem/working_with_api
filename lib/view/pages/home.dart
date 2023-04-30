@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:working_with_api/details.dart';
-import 'fetch_data_provider.dart';
+import 'package:working_with_api/view/pages/details.dart';
+import '../../core/constants/app_color_constants.dart';
+import '../../controller/provider/fetch_data_provider.dart';
 
 class Home extends ConsumerWidget {
   const Home({super.key});
@@ -18,17 +19,31 @@ class Home extends ConsumerWidget {
         data: (data) {
           return ListView.builder(
             itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.only(bottom: 5),
+              return Card(
                 child: ListTile(
+                  leading: Container(
+                    alignment: Alignment.center,
+                    width: 30,
+                    height: 30,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.blueAccent),
+                    child: Text(
+                      '${data[index]['id']}',
+                    ),
+                  ),
                   splashColor: Colors.blue,
                   minVerticalPadding: 5,
-                  title: Text('${data[index]['id']}'),
-                  subtitle: Text(data[index]['title']),
-                  shape: RoundedRectangleBorder(
-                      side: const BorderSide(color: Colors.black45),
-                      borderRadius: BorderRadius.circular(10)),
-                  isThreeLine: true,
+                  title: Text(
+                    '${data[index]['title']}',
+                    style: const TextStyle(
+                        fontSize: AppsizeConstants.listTileTitleSize),
+                  ),
+                  subtitle: Text(
+                    data[index]['body'],
+                    style: const TextStyle(
+                        fontSize: AppsizeConstants.listTileBodySize),
+                  ),
                   onTap: () {
                     Navigator.push(
                         context,

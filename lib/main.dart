@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import 'home.dart';
+import 'core/theme/light_theme/light_theme_color.dart';
+import 'view/pages/home.dart';
 
 void main(List<String> args) {
-  runApp(const ProviderScope(
+  runApp(ProviderScope(
     child: MaterialApp(
-      home: Home(),
+      theme: getThemeData(),
+      home: const Home(),
     ),
   ));
 }

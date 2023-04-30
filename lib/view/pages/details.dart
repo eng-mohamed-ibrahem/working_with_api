@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'fetch_data_provider.dart';
+import '../../core/constants/app_color_constants.dart';
+import '../../controller/provider/fetch_data_provider.dart';
 
 class Details extends ConsumerWidget {
   final int index;
@@ -35,6 +36,8 @@ class Details extends ConsumerWidget {
                     Flexible(
                       child: Text(
                         '${data[index]['name']}',
+                        style: const TextStyle(
+                            fontSize: AppsizeConstants.listTileTitleSize),
                       ),
                     )
                   ],
@@ -45,7 +48,11 @@ class Details extends ConsumerWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const Text('email:'),
+                    const Text(
+                      'email:',
+                      style: TextStyle(
+                          fontSize: AppsizeConstants.listTileTitleSize),
+                    ),
                     const SizedBox(
                       width: 10,
                     ),
@@ -60,8 +67,13 @@ class Details extends ConsumerWidget {
                   height: 5,
                 ),
                 Container(
-                    margin: const EdgeInsets.only(left: 20),
-                    child: Text('${data[index]['body']}')),
+                  margin: const EdgeInsets.only(left: 20),
+                  child: Text(
+                    '${data[index]['body']}',
+                    style: const TextStyle(
+                        fontSize: AppsizeConstants.listTileBodySize),
+                  ),
+                ),
               ],
             ),
           );
