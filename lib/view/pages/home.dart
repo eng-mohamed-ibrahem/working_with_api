@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:working_with_api/model/user_model.dart';
 import 'package:working_with_api/view/pages/details.dart';
+import 'package:working_with_api/view/pages/profile.dart';
 import '../../core/constants/app_color_constants.dart';
 import '../../controller/provider/fetch_data_provider.dart';
 
@@ -9,11 +11,30 @@ class Home extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final UserModel user = ref.read(getUserProvider)!;
+
     AsyncValue<List<dynamic>> dataFromJson = ref.watch(dataProvider);
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('fetch data'),
+        leading: InkWell(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const Profile(),
+              ),
+            );
+          },
+          child: Container(
+            margin: const EdgeInsets.all(5),
+            child: CircleAvatar(
+              radius: 40,
+              backgroundImage: NetworkImage(user.avatar),
+            ),
+          ),
+        ),
+        title: Text(user.firstName),
       ),
       body: dataFromJson.when(
         data: (data) {
