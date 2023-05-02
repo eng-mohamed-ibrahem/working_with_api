@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import 'package:working_with_api/controller/provider/fetch_data_provider.dart';
-
 import '../../controller/provider/save_user_at_shared_preference.dart';
+import '../../controller/provider/user_api_provider.dart';
 import '../../model/user_model.dart';
 import 'home.dart';
 
@@ -87,6 +86,7 @@ class LogIn extends HookConsumerWidget {
                       ),
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
+                          // TODO save user to sharedPreference
                           // get users from api and check if it already exist or not
                           await ref
                               .watch(getUserProvider.notifier)

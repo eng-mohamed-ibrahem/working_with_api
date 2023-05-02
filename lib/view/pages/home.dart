@@ -3,8 +3,9 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:working_with_api/model/user_model.dart';
 import 'package:working_with_api/view/pages/details.dart';
 import 'package:working_with_api/view/pages/profile.dart';
-import '../../core/constants/app_color_constants.dart';
 import '../../controller/provider/fetch_data_provider.dart';
+import '../../controller/provider/user_api_provider.dart';
+import '../../core/constants/app_color_constants.dart';
 
 class Home extends ConsumerWidget {
   const Home({super.key});

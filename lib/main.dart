@@ -8,7 +8,7 @@ void main(List<String> args) {
   runApp(ProviderScope(
     child: MaterialApp(
       theme: getThemeData(),
-      home: const LogIn(), // Home
+      home: const LogIn(), 
     ),
   ));
 }

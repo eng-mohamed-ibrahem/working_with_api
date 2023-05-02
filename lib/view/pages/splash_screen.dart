@@ -11,10 +11,10 @@ class SplashScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final UserModel? user = ref.watch(saveUserAtSharedPreference);
     if (user != null) {
-      // get user by email
-      // nagiator
+      // TODO get user by email
+      // TODO Navigate to Home
     } else {
-      // login
+      // TODO Navigate to Login
     }
     return Container(
       decoration: const BoxDecoration(

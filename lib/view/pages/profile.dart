@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-
-import '../../controller/provider/fetch_data_provider.dart';
+import '../../controller/provider/user_api_provider.dart';
 import '../../model/user_model.dart';
 
 class Profile extends ConsumerWidget {
