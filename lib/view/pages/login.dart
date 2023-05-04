@@ -1,9 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import '../../controller/provider/save_user_at_shared_preference.dart';
 import '../../controller/provider/user_api_provider.dart';
-import '../../model/user_model.dart';
 import 'home.dart';
 
 class LogIn extends HookConsumerWidget {
@@ -11,7 +12,7 @@ class LogIn extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final UserModel? user = ref.watch(saveUserAtSharedPreference);
+    ref.watch(saveUserAtSharedPreference);
 
     ref.watch(getUserProvider);
     final TextEditingController emailController = useTextEditingController();
@@ -86,22 +87,34 @@ class LogIn extends HookConsumerWidget {
                       ),
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
-                          // TODO save user to sharedPreference
                           // get users from api and check if it already exist or not
                           await ref
                               .watch(getUserProvider.notifier)
                               .getUserByEmail(emailController.text.trim())
                               .then(
                             (user) {
+                              log(user.toString());
                               if (user != null &&
                                   user.email == emailController.text.trim()) {
-                                Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => const Home(),
-                                  ),
-                                  (route) => false,
-                                );
+                                ref
+                                    .watch(saveUserAtSharedPreference.notifier)
+                                    .saveUser(user)
+                                    .then((done) {
+                                  if (done) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                          content:
+                                              Text("Logged in successfully")),
+                                    );
+                                    Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => const Home(),
+                                      ),
+                                      (route) => false,
+                                    );
+                                  }
+                                });
                               } else {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(

@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class UserModel {
   int id;
   String email;
@@ -33,5 +31,10 @@ class UserModel {
     };
   }
 
-  String toJson() => jsonEncode(_toMap);
+  Map<String, dynamic> toJson() => _toMap();
+
+  @override
+  String toString() {
+    return _toMap().toString();
+  }
 }

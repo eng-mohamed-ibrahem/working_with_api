@@ -29,9 +29,12 @@ class Home extends ConsumerWidget {
           },
           child: Container(
             margin: const EdgeInsets.all(5),
-            child: CircleAvatar(
-              radius: 40,
-              backgroundImage: NetworkImage(user.avatar),
+            child: Hero(
+              tag: 'profile_image',
+              child: CircleAvatar(
+                radius: 40,
+                backgroundImage: NetworkImage(user.avatar),
+              ),
             ),
           ),
         ),

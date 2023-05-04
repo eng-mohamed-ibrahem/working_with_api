@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:working_with_api/view/pages/login.dart';
 import '../../controller/provider/user_api_provider.dart';
 import '../../model/user_model.dart';
 
@@ -32,9 +33,12 @@ class Profile extends ConsumerWidget {
               const SizedBox(
                 height: 20,
               ),
-              CircleAvatar(
-                radius: 50,
-                backgroundImage: NetworkImage(user.avatar),
+              Hero(
+                tag: 'profile_image',
+                child: CircleAvatar(
+                  radius: 50,
+                  backgroundImage: NetworkImage(user.avatar),
+                ),
               ),
               const SizedBox(
                 height: 10,
@@ -53,6 +57,43 @@ class Profile extends ConsumerWidget {
             ],
           ),
         ),
+      ),
+      floatingActionButton: TextButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (_) {
+              return AlertDialog(
+                title: const Text('Are you sure to Log out'),
+                content: const Text(
+                    'You about to logout, your data will be erased\nwill downloaded again after loged in.'),
+                actions: [
+                  TextButton(
+                    onPressed: () {
+                      // nothing to do
+                    },
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      // no clearing user data
+
+                      // navigate to login page
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LogIn(),
+                          ),
+                          (route) => false);
+                    },
+                    child: const Text('Yes'),
+                  ),
+                ],
+              );
+            },
+          );
+        },
+        child: const Text('Log out'),
       ),
     );
   }
