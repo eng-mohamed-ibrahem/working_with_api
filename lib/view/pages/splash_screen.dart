@@ -1,18 +1,21 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:working_with_api/view/pages/home.dart';
 import 'package:working_with_api/view/pages/login.dart';
 import '../../controller/provider/save_user_at_shared_preference.dart';
-import '../../model/user_model.dart';
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<UserModel?> user = ref.watch(saveUserAtSharedPreference);
+    final user = ref.watch(saveUserAtSharedPreference);
+    log('inside build$user');
 
+    /// threr is something error here
     return user.when(data: (user) {
+      log('from splash screen-$user');
       if (user != null) {
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
@@ -33,10 +36,7 @@ class SplashScreen extends ConsumerWidget {
             ),
             (route) => false);
       }
-
-      return Center(
-        child: Image.asset('assets/images/loading_image.jpg'),
-      );
+      return const SizedBox();
     }, error: (error, stackTrace) {
       return const Center(
         child: Text('Oops, there something unexpected happened'),

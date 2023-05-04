@@ -10,12 +10,12 @@ final accessSharedPreference = FutureProvider<SharedPreferences>((ref) async {
 
 final saveUserAtSharedPreference =
     StateNotifierProvider<_UserStateNotifier, AsyncValue<UserModel?>>((ref) {
-  return _UserStateNotifier(ref, const AsyncValue.loading());
+  return _UserStateNotifier(ref);
 });
 
 class _UserStateNotifier extends StateNotifier<AsyncValue<UserModel?>> {
   Ref ref;
-  _UserStateNotifier(this.ref, super.state) {
+  _UserStateNotifier(this.ref) : super(const AsyncValue.loading()) {
     getUser();
   }
 

@@ -27,6 +27,7 @@ class _UserStateNotifier extends StateNotifier<UserModel?> {
           allUsers.add(UserModel.fromJson(user));
         }
       }
+
       return allUsers;
     } catch (e) {
       debugPrint('$e');

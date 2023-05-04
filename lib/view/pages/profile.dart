@@ -66,18 +66,16 @@ class Profile extends ConsumerWidget {
               return AlertDialog(
                 title: const Text('Are you sure to Log out'),
                 content: const Text(
-                    'You about to logout, your data will be erased\nwill downloaded again after loged in.'),
+                    'You about to logout, your data will be erased.\nwill downloaded again after loged in.'),
                 actions: [
                   TextButton(
                     onPressed: () {
-                      // nothing to do
+                      Navigator.pop(context);
                     },
                     child: const Text('Cancel'),
                   ),
                   TextButton(
                     onPressed: () {
-                      // no clearing user data
-
                       // navigate to login page
                       Navigator.pushAndRemoveUntil(
                           context,
