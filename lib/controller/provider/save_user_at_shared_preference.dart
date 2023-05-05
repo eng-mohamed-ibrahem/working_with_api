@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:working_with_api/model/user_model.dart';
@@ -9,13 +10,13 @@ final accessSharedPreference = FutureProvider<SharedPreferences>((ref) async {
 });
 
 final saveUserAtSharedPreference =
-    StateNotifierProvider<_UserStateNotifier, AsyncValue<UserModel?>>((ref) {
+    StateNotifierProvider<_UserStateNotifier, UserModel?>((ref) {
   return _UserStateNotifier(ref);
 });
 
-class _UserStateNotifier extends StateNotifier<AsyncValue<UserModel?>> {
+class _UserStateNotifier extends StateNotifier<UserModel?> {
   Ref ref;
-  _UserStateNotifier(this.ref) : super(const AsyncValue.loading()) {
+  _UserStateNotifier(this.ref) : super(null) {
     getUser();
   }
 
@@ -25,35 +26,34 @@ class _UserStateNotifier extends StateNotifier<AsyncValue<UserModel?>> {
     try {
       await ref.read(accessSharedPreference.future).then((shared) async {
         await shared.setString('user', jsonEncode(user.toJson()));
-        state = AsyncValue.data(user);
+        state = user;
         done = true;
       });
-    } on Exception catch (error, stackTrack) {
-      state = AsyncValue.error(error, stackTrack);
+    } on Exception catch (error) {
+      state = null;
       done = false;
+      debugPrint('$error');
       rethrow;
     }
     return done;
   }
 
-  Future<AsyncValue<UserModel?>> getUser() async {
-    state = const AsyncValue.loading();
+  Future<UserModel?> getUser() async {
     try {
       await ref.watch(accessSharedPreference.future).then((shared) async {
         if (shared.containsKey('user')) {
           String jsonObject = shared.getString('user')!;
-          state = AsyncValue.data(
-            UserModel.fromJson(
-              jsonDecode(jsonObject),
-            ),
+          state = UserModel.fromJson(
+            jsonDecode(jsonObject),
           );
         } else {
-          state = const AsyncValue.data(null);
+          state = null;
           log('no user yet');
         }
       });
-    } on Exception catch (error, stackTrace) {
-      state = AsyncValue.error(error, stackTrace);
+    } on Exception catch (error) {
+      debugPrint('$error');
+      state = null;
     }
 
     return state;

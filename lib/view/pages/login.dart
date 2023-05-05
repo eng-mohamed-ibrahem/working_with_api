@@ -109,7 +109,7 @@ class LogIn extends HookConsumerWidget {
                                     Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => const Home(),
+                                        builder: (context) => Home(user: user),
                                       ),
                                       (route) => false,
                                     );

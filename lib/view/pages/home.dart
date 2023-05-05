@@ -4,16 +4,14 @@ import 'package:working_with_api/model/user_model.dart';
 import 'package:working_with_api/view/pages/details.dart';
 import 'package:working_with_api/view/pages/profile.dart';
 import '../../controller/provider/fetch_data_provider.dart';
-import '../../controller/provider/user_api_provider.dart';
 import '../../core/constants/app_color_constants.dart';
 
 class Home extends ConsumerWidget {
-  const Home({super.key});
+  final UserModel user;
+  const Home({super.key, required this.user});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final UserModel user = ref.read(getUserProvider)!;
-
     AsyncValue<List<dynamic>> dataFromJson = ref.watch(dataProvider);
 
     return Scaffold(
@@ -23,7 +21,7 @@ class Home extends ConsumerWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const Profile(),
+                builder: (context) =>  Profile(user:user),
               ),
             );
           },

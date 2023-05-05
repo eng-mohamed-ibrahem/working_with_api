@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:working_with_api/view/pages/login.dart';
-import '../../controller/provider/user_api_provider.dart';
 import '../../model/user_model.dart';
 
 class Profile extends ConsumerWidget {
-  const Profile({super.key});
+  final UserModel user;
+  const Profile({super.key, required this.user});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final UserModel user = ref.read(getUserProvider)!;
-
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(

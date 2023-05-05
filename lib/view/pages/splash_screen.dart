@@ -10,13 +10,11 @@ class SplashScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final user = ref.watch(saveUserAtSharedPreference);
-    log('inside build$user');
+    ref.read(saveUserAtSharedPreference.notifier).getUser().then((user) {
+      log('inside build$user');
 
-    /// threr is something error here
-    return user.when(data: (user) {
-      log('from splash screen-$user');
       if (user != null) {
+        log('from splash screen-$user');
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(
             content: Text('Welcome back'),
@@ -25,7 +23,7 @@ class SplashScreen extends ConsumerWidget {
         Navigator.pushAndRemoveUntil(
             context,
             MaterialPageRoute(
-              builder: (context) => const Home(),
+              builder: (context) => Home(user: user),
             ),
             (route) => false);
       } else {
@@ -36,16 +34,15 @@ class SplashScreen extends ConsumerWidget {
             ),
             (route) => false);
       }
-      return const SizedBox();
-    }, error: (error, stackTrace) {
-      return const Center(
-        child: Text('Oops, there something unexpected happened'),
-      );
-    }, loading: () {
-      return Center(
-        child: Image.asset('assets/images/loading_image.jpg'),
-        // child: CircularProgressIndicator(),
-      );
     });
+
+    return Scaffold(
+      body: Image.asset(
+        'assets/images/loading_image.jpg',
+        width: double.infinity,
+        height: double.infinity,
+        fit: BoxFit.contain,
+      ),
+    );
   }
 }
