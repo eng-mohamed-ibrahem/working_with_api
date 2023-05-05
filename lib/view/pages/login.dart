@@ -90,7 +90,8 @@ class LogIn extends HookConsumerWidget {
                           // get users from api and check if it already exist or not
                           await ref
                               .watch(getUserProvider.notifier)
-                              .getUserByEmail(emailController.text.trim())
+                              .getUserByEmail(
+                                  email: emailController.text.trim())
                               .then(
                             (user) {
                               log(user.toString());
@@ -109,7 +110,7 @@ class LogIn extends HookConsumerWidget {
                                     Navigator.pushAndRemoveUntil(
                                       context,
                                       MaterialPageRoute(
-                                        builder: (context) => Home(user: user),
+                                        builder: (context) => const Home(),
                                       ),
                                       (route) => false,
                                     );

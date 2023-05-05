@@ -35,7 +35,7 @@ class _UserStateNotifier extends StateNotifier<UserModel?> {
     }
   }
 
-  Future<UserModel?> getUserByEmail(String email) async {
+  Future<UserModel?> getUserByEmail({required String email}) async {
     try {
       for (var user in allUsers) {
         if (user.email == email) {

@@ -4,15 +4,17 @@ import 'package:working_with_api/model/user_model.dart';
 import 'package:working_with_api/view/pages/details.dart';
 import 'package:working_with_api/view/pages/profile.dart';
 import '../../controller/provider/fetch_data_provider.dart';
+import '../../controller/provider/save_user_at_shared_preference.dart';
 import '../../core/constants/app_color_constants.dart';
 
 class Home extends ConsumerWidget {
-  final UserModel user;
-  const Home({super.key, required this.user});
+  const Home({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<List<dynamic>> dataFromJson = ref.watch(dataProvider);
+    final UserModel user = ref.read(
+        saveUserAtSharedPreference)!; // get user from shared after first downloaded not get it again from api
 
     return Scaffold(
       appBar: AppBar(
@@ -21,7 +23,7 @@ class Home extends ConsumerWidget {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) =>  Profile(user:user),
+                builder: (context) => const Profile(),
               ),
             );
           },

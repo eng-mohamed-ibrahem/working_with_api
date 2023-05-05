@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:working_with_api/view/pages/login.dart';
+import '../../controller/provider/save_user_at_shared_preference.dart';
 import '../../model/user_model.dart';
 
 class Profile extends ConsumerWidget {
-  final UserModel user;
-  const Profile({super.key, required this.user});
+  const Profile({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final UserModel user = ref.read(saveUserAtSharedPreference)!;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -34,7 +35,7 @@ class Profile extends ConsumerWidget {
               Hero(
                 tag: 'profile_image',
                 child: CircleAvatar(
-                  radius: 50,
+                  radius: 100,
                   backgroundImage: NetworkImage(user.avatar),
                 ),
               ),
@@ -64,7 +65,7 @@ class Profile extends ConsumerWidget {
               return AlertDialog(
                 title: const Text('Are you sure to Log out'),
                 content: const Text(
-                    'You about to logout, your data will be erased.\nwill downloaded again after loged in.'),
+                    'You about to logout, your data will be erased and will be downloaded again after loged in.'),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -74,15 +75,20 @@ class Profile extends ConsumerWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      // navigate to login page
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const LogIn(),
-                          ),
-                          (route) => false);
+                      ref
+                          .watch(saveUserAtSharedPreference.notifier)
+                          .clearUser()
+                          .whenComplete(() {
+                        // navigate to login page
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const LogIn(),
+                            ),
+                            (route) => false);
+                      });
                     },
-                    child: const Text('Yes'),
+                    child: const Text('Confirm'),
                   ),
                 ],
               );

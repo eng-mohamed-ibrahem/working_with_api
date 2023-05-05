@@ -58,4 +58,10 @@ class _UserStateNotifier extends StateNotifier<UserModel?> {
 
     return state;
   }
+
+  Future<bool> clearUser() async {
+    return await ref.watch(accessSharedPreference.future).then((shared) {
+      return shared.clear();
+    });
+  }
 }
