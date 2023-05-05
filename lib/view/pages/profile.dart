@@ -65,7 +65,7 @@ class Profile extends ConsumerWidget {
               return AlertDialog(
                 title: const Text('Are you sure to Log out'),
                 content: const Text(
-                    'You about to logout, your data will be erased and will be downloaded again after loged in.'),
+                    'You about to logout, your data will be erased and will be downloaded again after logged in.'),
                 actions: [
                   TextButton(
                     onPressed: () {

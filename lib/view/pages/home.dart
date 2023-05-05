@@ -14,7 +14,7 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<List<dynamic>> dataFromJson = ref.watch(dataProvider);
     final UserModel user = ref.read(
-        saveUserAtSharedPreference)!; // get user from shared after first downloaded not get it again from api
+        saveUserAtSharedPreference)!; // get user from shared after first downloaded, not get it again from api
 
     return Scaffold(
       appBar: AppBar(
