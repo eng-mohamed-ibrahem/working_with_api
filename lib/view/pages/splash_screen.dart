@@ -15,7 +15,7 @@ class SplashScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     ref.watch(connectivityProvider); // required to rebuild after changing state
     ref.watch(connectivityProvider.notifier).checkConnection().then((result) {
-      /// chech if connected
+      /// chech if connected to the internet
       if (ref.watch(connectivityProvider.notifier).isConnected()) {
         /// get data from api
         ref.watch(saveUserAtSharedPreference.notifier).getUser().then((user) {
