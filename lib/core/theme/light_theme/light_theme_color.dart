@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../constants/app_color_constants.dart';
+import '../../constants/app_size_constants.dart';
 
 ThemeData getThemeData() => ThemeData(
       primaryColor: AppColorConstants.primaryColor,
@@ -7,12 +8,35 @@ ThemeData getThemeData() => ThemeData(
       textButtonTheme: const TextButtonThemeData(
         style: ButtonStyle(),
       ),
-      cardTheme: CardTheme(
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          side: const BorderSide(color: AppColorConstants.borderSideColor),
-          borderRadius: BorderRadius.circular(10),
+      cardTheme: cardTheme(),
+      elevatedButtonTheme: const ElevatedButtonThemeData(
+        style: ButtonStyle(
+          backgroundColor: MaterialStatePropertyAll(
+            AppColorConstants.backgroundColorOfElevatedButton,
+          ),
         ),
-        margin: const EdgeInsets.only(bottom: 10),
+      ),
+      inputDecorationTheme: inputDecorationTheme(),
+    );
+
+CardTheme cardTheme() => CardTheme(
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(
+        side: const BorderSide(color: AppColorConstants.borderSideColor),
+        borderRadius: BorderRadius.circular(AppsizeConstants.cardBorderRadius),
+      ),
+      margin: const EdgeInsets.only(bottom: 10),
+    );
+
+InputDecorationTheme inputDecorationTheme() => InputDecorationTheme(
+      labelStyle: const TextStyle(
+        color: AppColorConstants.labelTextColor,
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius:
+            BorderRadius.circular(AppsizeConstants.textFiledBorderRadius),
+        borderSide: const BorderSide(
+          color: AppColorConstants.textFieldBorderColor,
+        ),
       ),
     );

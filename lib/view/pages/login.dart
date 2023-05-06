@@ -54,19 +54,8 @@ class LogIn extends HookConsumerWidget {
                         color: Color.fromRGBO(42, 148, 121, 1),
                       ),
                       cursorColor: const Color.fromRGBO(42, 148, 121, 1),
-                      decoration: InputDecoration(
-                        labelStyle: const TextStyle(
-                          color: Color.fromRGBO(42, 148, 121, 1),
-                        ),
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                            color: Color.fromRGBO(56, 59, 64, 1),
-                          ),
-                        ),
+                      decoration: const InputDecoration(
                         labelText: 'Enter your email',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
                       ),
                       controller: emailController,
                       validator: (value) {
@@ -80,11 +69,6 @@ class LogIn extends HookConsumerWidget {
                       height: 20,
                     ),
                     ElevatedButton(
-                      style: const ButtonStyle(
-                        backgroundColor: MaterialStatePropertyAll(
-                          Color.fromRGBO(56, 59, 64, 1),
-                        ),
-                      ),
                       onPressed: () async {
                         if (formKey.currentState!.validate()) {
                           // get users from api and check if it already exist or not

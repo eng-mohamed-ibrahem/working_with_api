@@ -1,5 +1,5 @@
+import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 final connectivityProvider =
@@ -9,14 +9,10 @@ final connectivityProvider =
 });
 
 class _ConnectivityProviderState extends StateNotifier<ConnectivityResult> {
-  _ConnectivityProviderState(super.state) {
-    isConnected();
-  }
+  _ConnectivityProviderState(super.state);
 
   /// check if connected or not
-  Future<bool> isConnected() async {
-    state = await Connectivity().checkConnectivity();
-    debugPrint('$state');
+  bool isConnected() {
     if (state == ConnectivityResult.bluetooth ||
         state == ConnectivityResult.none) {
       return false;
@@ -27,10 +23,9 @@ class _ConnectivityProviderState extends StateNotifier<ConnectivityResult> {
     return false;
   }
 
-  /// update checking
-  bool updateConnectivity() {
-    bool updated = false;
-    isConnected().then((value) => updated = value);
-    return updated;
+  Future<ConnectivityResult> checkConnection() async {
+    log('1');
+    state = await Connectivity().checkConnectivity();
+    return state;
   }
 }

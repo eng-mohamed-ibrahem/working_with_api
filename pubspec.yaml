@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/images/be_live_logo.jpg
     - assets/images/loading_image.jpg
+    - assets/images/no_internet_connection.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

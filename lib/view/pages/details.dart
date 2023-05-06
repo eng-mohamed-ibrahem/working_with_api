@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../core/constants/app_color_constants.dart';
 import '../../controller/provider/fetch_data_provider.dart';
+import '../../core/constants/app_size_constants.dart';
 
 class Details extends ConsumerWidget {
   final int index;

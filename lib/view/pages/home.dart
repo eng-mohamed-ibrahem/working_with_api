@@ -5,7 +5,7 @@ import 'package:working_with_api/view/pages/details.dart';
 import 'package:working_with_api/view/pages/profile.dart';
 import '../../controller/provider/fetch_data_provider.dart';
 import '../../controller/provider/save_user_at_shared_preference.dart';
-import '../../core/constants/app_color_constants.dart';
+import '../../core/constants/app_size_constants.dart';
 
 class Home extends ConsumerWidget {
   const Home({super.key});
@@ -13,6 +13,7 @@ class Home extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     AsyncValue<List<dynamic>> dataFromJson = ref.watch(dataProvider);
+    ref.watch(commentProvider); // to get all data at once
     final UserModel user = ref.read(
         saveUserAtSharedPreference)!; // get user from shared after first downloaded, not get it again from api
 

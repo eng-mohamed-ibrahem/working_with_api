@@ -6,40 +6,17 @@ import 'package:working_with_api/view/pages/login.dart';
 import '../../controller/provider/connectivity_provider.dart';
 import '../../controller/provider/save_user_at_shared_preference.dart';
 import '../../controller/provider/user_api_provider.dart';
+import '../widget/connection_dialog.dart';
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.watch(connectivityProvider.notifier).isConnected().then((connected) {
+    ref.watch(connectivityProvider); // required to rebuild after changing state
+    ref.watch(connectivityProvider.notifier).checkConnection().then((result) {
       /// chech if connected
-      if (!connected) {
-        showDialog(
-          barrierDismissible: false,
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Text('No Connection'),
-              content: const Text('connected to any network and try again'),
-              actions: [
-                TextButton(
-                    onPressed: () {
-                      ref
-                          .watch(connectivityProvider.notifier)
-                          .updateConnectivity();
-                    },
-                    child: const Text('Retry'))
-              ],
-            );
-          },
-        );
-        return Image.asset(
-          'assets/images/loading_image.jpg',
-          width: double.infinity,
-          height: double.infinity,
-        );
-      } else {
+      if (ref.watch(connectivityProvider.notifier).isConnected()) {
         /// get data from api
         ref.watch(saveUserAtSharedPreference.notifier).getUser().then((user) {
           log('from splash-$user');
@@ -73,11 +50,18 @@ class SplashScreen extends ConsumerWidget {
       }
     });
 
+    log('2');
+
     /// loading
-    return const Scaffold(
-      body: Center(
-        child: Text('Loading...'),
-      ),
+    return Scaffold(
+      body: ref.watch(connectivityProvider.notifier).isConnected()
+          ? Image.asset(
+              'assets/images/loading_image.jpg',
+              width: double.infinity,
+              height: double.infinity,
+              fit: BoxFit.cover,
+            )
+          : const ConnectionDialog(),
     );
   }
 }
